@@ -20,8 +20,8 @@ world_renderer = WorldRenderer(world_data)
 
 # Ejecutar el algoritmo de búsqueda voraz
 start_time = time.perf_counter()
-#path, nodes_expanded, depth, computation_time = avara(world_data)
-path, nodes_expanded, depth, computation_time = profundidad(world_data,14)
+path, nodes_expanded, depth, computation_time = avara(world_data)
+#path, nodes_expanded, depth, computation_time = profundidad(world_data,14)
 end_time = time.perf_counter()
 
 if path:
