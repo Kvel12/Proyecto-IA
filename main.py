@@ -1,11 +1,12 @@
 import pygame
 from interfaz import WorldRenderer
 from Avara import avara
+from Profundidad import profundidad
 import time
 
 # Cargar los datos del mundo desde un archivo de texto
 world_data = []
-with open("Prueba2.txt", "r") as file:
+with open("Prueba1.txt", "r") as file:
     for line in file:
         row = [int(x) for x in line.strip().split()]
         world_data.append(row)
@@ -19,7 +20,8 @@ world_renderer = WorldRenderer(world_data)
 
 # Ejecutar el algoritmo de búsqueda voraz
 start_time = time.perf_counter()
-path, nodes_expanded, depth, computation_time = avara(world_data)
+#path, nodes_expanded, depth, computation_time = avara(world_data)
+path, nodes_expanded, depth, computation_time = profundidad(world_data,14)
 end_time = time.perf_counter()
 
 if path:
