@@ -7,7 +7,7 @@ def profundidad_evitando_ciclos(world_data):
         nonlocal nodes_expanded
         nodes_expanded += 1
         x, y, path = node
-        for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+        for dx, dy in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
             nx, ny = x + dx, y + dy
             if 0 <= nx < 10 and 0 <= ny < 10 and (nx, ny) not in path and world_data[ny][nx] != 1:
                 if world_data[ny][nx] == 5:
@@ -54,6 +54,6 @@ def guardar_solucion(world_data, path, output_file):
 def generar_reporte(nodes_expanded, depth, computation_time):
     print(f"Nodos expandidos: {nodes_expanded}")
     print(f"Profundidad del árbol: {depth}")
-    print(f"Tiempo de cómputo: {computation_time:.2f} segundos")
+    print(f"Tiempo de cómputo: {computation_time:.2f} segundos")    
 
 
