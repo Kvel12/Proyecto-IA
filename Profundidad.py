@@ -1,59 +1,61 @@
 import time
 
-def profundidad(world_data, max_depth):
+def profundidad_evitando_ciclos(world_data):
     start_time = time.perf_counter()
-
-    explored = set()
-    stack = [(0, world_data)]
-    nodes_expanded = 0
-
-    while stack:
-        depth, current_state = stack.pop()
+    
+    def expand(node):
+        nonlocal nodes_expanded
         nodes_expanded += 1
+        x, y, path = node
+        for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < 10 and 0 <= ny < 10 and (nx, ny) not in path and world_data[ny][nx] != 1:
+                if world_data[ny][nx] == 5:
+                    return path + [(nx, ny)]
+                else:
+                    result = expand((nx, ny, path + [(nx, ny)]))
+                    if result:
+                        return result
+        return None
+    
+    nodes_expanded = 0
+    start_position = None
+    for y in range(10):
+        for x in range(10):
+            if world_data[y][x] == 2:
+                start_position = (x, y)
+                break
+        if start_position:
+            break
+    
+    if start_position:
+        path = expand((start_position[0], start_position[1], [start_position]))
+        depth = len(path) if path else 0
+        end_time = time.perf_counter()
+        computation_time = end_time - start_time
+        return path, nodes_expanded, depth, computation_time
+    else:
+        return None, nodes_expanded, 0, 0
 
-        if depth > max_depth:
-            continue
+def guardar_solucion(world_data, path, output_file):
+    if path:
+        with open(output_file, "w") as file:
+            for y in range(10):
+                for x in range(10):
+                    if (x, y) in path:
+                        file.write("X ")
+                    else:
+                        file.write(str(world_data[y][x]) + " ")
+                file.write("\n")
+        print(f"Solución guardada en '{output_file}'.")
+    else:
+        print("No se encontró solución.")
 
-        if is_goal_state(current_state):
-            end_time = time.perf_counter()
-            computation_time = end_time - start_time
-            return reconstruct_path(current_state), nodes_expanded, depth, computation_time
+def generar_reporte(nodes_expanded, depth, computation_time):
+    print(f"Nodos expandidos: {nodes_expanded}")
+    print(f"Profundidad del árbol: {depth}")
+    print(f"Tiempo de cómputo: {computation_time:.2f} segundos")
 
-        explored.add(hash(str(current_state)))
+# Ejemplo de uso:
+# world_data es la matriz que representa el mundo del escenario
 
-        for action in get_possible_actions(current_state):
-            next_state = apply_action(current_state, action)
-            if hash(str(next_state)) not in explored:
-                stack.append((depth + 1, next_state))
-
-    end_time = time.perf_counter()
-    computation_time = end_time - start_time
-    return None, nodes_expanded, max_depth, computation_time
-
-def is_goal_state(state):
-    for row in state:
-        if 5 in row:
-            return True
-    return False
-
-def get_possible_actions(state):
-    actions = []
-    for y in range(len(state)):
-        for x in range(len(state[y])):
-            if state[y][x] != 1:
-                actions.append((x, y))
-    return actions
-
-def apply_action(state, action):
-    x, y = action
-    new_state = [row[:] for row in state]
-    new_state[y][x] = 2
-    return new_state
-
-def reconstruct_path(final_state):
-    path = []
-    for y in range(len(final_state)):
-        for x in range(len(final_state[y])):
-            if final_state[y][x] == 2:
-                path.append((x, y))
-    return path[::-1]  # Invertir el camino para que esté en orden de inicio a fin
