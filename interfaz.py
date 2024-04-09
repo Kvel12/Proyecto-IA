@@ -21,36 +21,14 @@ class WorldRenderer:
         self.tile_images[0].fill((255, 255, 255))  # Llenar el suelo de blanco
         self.tile_images[1].fill((128, 128, 128))  # Llenar el muro de gris
 
-    def render(self):
+    def render(self, path=None):
         for y in range(10):
             for x in range(10):
                 self.screen.blit(self.tile_images[self.world_data[y][x]], (x * self.tile_size, y * self.tile_size))
+
+        if path:
+            for x, y in path:
+                self.screen.blit(self.tile_images[2], (x * self.tile_size, y * self.tile_size))
+
         pygame.display.flip()
 
-
-# Cargar los datos del mundo desde un archivo de texto
-world_data = []
-with open("Prueba1.txt", "r") as file:
-    for line in file:
-        row = [int(x) for x in line.strip().split()]
-        world_data.append(row)
-
-# Inicializar Pygame
-pygame.init()
-pygame.display.set_caption("Smart Mandalorian")
-
-# Crear el renderizador del mundo
-world_renderer = WorldRenderer(world_data)
-
-# Bucle principal
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    # Renderizar el mundo
-    world_renderer.render()
-
-# Cerrar Pygame
-pygame.quit()
