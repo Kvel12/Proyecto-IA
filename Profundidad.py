@@ -56,6 +56,4 @@ def generar_reporte(nodes_expanded, depth, computation_time):
     print(f"Profundidad del árbol: {depth}")
     print(f"Tiempo de cómputo: {computation_time:.2f} segundos")
 
-# Ejemplo de uso:
-# world_data es la matriz que representa el mundo del escenario
 
