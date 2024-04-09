@@ -18,7 +18,9 @@ pygame.display.set_caption("Smart Mandalorian")
 world_renderer = WorldRenderer(world_data)
 
 # Ejecutar el algoritmo de búsqueda voraz
+start_time = time.perf_counter()
 path, nodes_expanded, depth, computation_time = avara(world_data)
+end_time = time.perf_counter()
 
 if path:
     print(f"Ruta encontrada: {path}")
@@ -38,5 +40,4 @@ if path:
 else:
     print("No se encontró solución.")
 
-# Cerrar Pygame
 pygame.quit()
