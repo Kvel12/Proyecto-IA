@@ -25,8 +25,8 @@ def avara(world_data):
     # Encontrar las coordenadas de inicio y destino
     start_x, start_y = None, None
     target_x, target_y = None, None
-    for y in range(10):
-        for x in range(10):
+    for y in range(len(world_data)):
+        for x in range(len(world_data[0])):
             if world_data[y][x] == 2:
                 start_x, start_y = x, y
             elif world_data[y][x] == 5:
@@ -50,16 +50,15 @@ def avara(world_data):
             # Llegó a Grogu
             path = []
             while current_node.parent:
-                path.append((current_node.x, current_node.y))
+                path.append((current_node.y, current_node.x))  # Invertir el orden de las coordenadas
                 current_node = current_node.parent
-            path.append((start_x, start_y))
+            path.append((start_y, start_x))  # Invertir el orden de las coordenadas del inicio
             path.reverse()
             end_time = time.perf_counter()
-            return path, nodes_expanded, len(path), end_time - start_time
+            return path, nodes_expanded, len(path) - 1, end_time - start_time  # Devolver la profundidad sin contar la raíz
 
         if (current_node.x, current_node.y) in visited:
             continue
-
         visited.add((current_node.x, current_node.y))
         max_depth = max(max_depth, len(visited))
 
@@ -80,4 +79,5 @@ def avara(world_data):
                 heapq.heappush(pq, (node.cost + node.h, node))
 
     # No se encontró solución
-    return None, nodes_expanded, max_depth, time.perf_counter() - start_time
+    end_time = time.perf_counter()
+    return None, nodes_expanded, max_depth, end_time - start_time

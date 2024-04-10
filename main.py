@@ -1,7 +1,7 @@
 import pygame
 from interfaz import WorldRenderer
 from Avara import avara
-from Profundidad import profundidad
+from Profundidad import profundidad_evitando_ciclos
 from Amplitud import busqueda_amplitud
 import time
 
@@ -21,17 +21,20 @@ world_renderer = WorldRenderer(world_data)
 
 # Ejecutar el algoritmo de búsqueda voraz
 start_time = time.perf_counter()
-path, nodes_expanded, depth, computation_time = busqueda_amplitud(world_data)
+#path, nodes_expanded, depth, computation_time = busqueda_amplitud(world_data)
 #path, nodes_expanded, depth, computation_time = avara(world_data)
-#path, nodes_expanded, depth, computation_time = profundidad(world_data,14)
+path, nodes_expanded, depth, computation_time = profundidad_evitando_ciclos(world_data)
 end_time = time.perf_counter()
 
 if path:
+    
     print(f"Ruta encontrada: {path}")
     print(f"Nodos expandidos: {nodes_expanded}")
     print(f"Profundidad del árbol: {depth}")
     print(f"Tiempo de cómputo: {computation_time:.2f} segundos")
 
+    if path[0][0] != 0:
+        path = [(x, y) for y, x in path]
     # Renderizar la ruta
     world_renderer.render(path)
 
