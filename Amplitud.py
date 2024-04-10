@@ -1,3 +1,5 @@
+import time
+
 # Definición de la clase para representar un nodo en el grafo
 class Nodo:
     def __init__(self, estado, padre=None, profundidad=0):
@@ -16,10 +18,20 @@ def obtener_sucesores(mundo, nodo):
     return sucesores
 
 # Algoritmo de búsqueda en amplitud
-def busqueda_amplitud(mundo, inicio, objetivo):
+def busqueda_amplitud(mundo):
+    # Encontrar las coordenadas de inicio y destino
+    start_x, start_y = None, None
+    target_x, target_y = None, None
+    for y in range(len(mundo)):
+        for x in range(len(mundo[0])):
+            if mundo[y][x] == 2:
+                start_x, start_y = x, y
+            elif mundo[y][x] == 5:
+                target_x, target_y = x, y
+
     # Convertir el estado inicial y objetivo en nodos
-    nodo_inicio = Nodo(inicio)
-    nodo_objetivo = Nodo(objetivo)
+    nodo_inicio = Nodo((start_x, start_y))
+    nodo_objetivo = Nodo((target_x, target_y))
 
     # Inicializar la cola de nodos a explorar
     cola = [nodo_inicio]
@@ -30,6 +42,9 @@ def busqueda_amplitud(mundo, inicio, objetivo):
     # Inicializar contador de nodos expandidos y profundidad máxima
     nodos_expandidos = 0
     profundidad_maxima = 0
+
+    # Inicializar el tiempo de cómputo
+    start_time = time.perf_counter()
 
     # Bucle principal de búsqueda
     while cola:
@@ -49,7 +64,9 @@ def busqueda_amplitud(mundo, inicio, objetivo):
             while nodo_actual:
                 camino.append(nodo_actual.estado)
                 nodo_actual = nodo_actual.padre
-            return camino[::-1], nodos_expandidos, profundidad_maxima  # Devolver el camino invertido, nodos expandidos y profundidad máxima
+            end_time = time.perf_counter()
+            computation_time = end_time - start_time
+            return camino[::-1], nodos_expandidos, profundidad_maxima, computation_time  # Devolver el camino invertido, nodos expandidos, profundidad máxima y tiempo de cómputo
 
         # Agregar el nodo actual al conjunto de nodos visitados
         visitados.add(nodo_actual.estado)
@@ -62,41 +79,7 @@ def busqueda_amplitud(mundo, inicio, objetivo):
             if sucesor.estado not in visitados and sucesor not in cola:  # Verificar si el sucesor no ha sido visitado ni está en la cola
                 cola.append(sucesor)
 
-    # Si no se encuentra el objetivo, devolver None para el camino y la profundidad
-    return None, nodos_expandidos, profundidad_maxima
-
-# Función para cargar el mundo desde un archivo txt y encontrar la posición inicial y la meta
-def cargar_mundo_y_encontrar_posiciones(archivo):
-    mundo = []
-    inicio = None
-    objetivo = None
-    with open(archivo, 'r') as f:
-        for i, line in enumerate(f):
-            row = list(map(int, line.strip().split()))
-            mundo.append(row)
-            for j, cell in enumerate(row):
-                if cell == 2:  # Si encontramos el inicio
-                    inicio = (i, j)
-                elif cell == 5:  # Si encontramos la meta
-                    objetivo = (i, j)
-    return mundo, inicio, objetivo
-
-# Función principal para probar el algoritmo
-def main(archivo):
-    # Cargar el mundo desde el archivo y encontrar la posición inicial y la meta
-    mundo, inicio, objetivo = cargar_mundo_y_encontrar_posiciones(archivo)
-
-    # Ejecutar el algoritmo de búsqueda en amplitud
-    camino, nodos_expandidos, profundidad_maxima = busqueda_amplitud(mundo, inicio, objetivo)
-
-    # Mostrar el resultado
-    if camino:
-        print("Camino encontrado:", camino)
-        print("Nodos expandidos:", nodos_expandidos)
-        print("Profundidad del arbol:", profundidad_maxima)
-    else:
-        print("No se encontró un camino.")
-
-if __name__ == "__main__":
-    archivo = "prueba1.txt"  # Nombre del archivo que contiene la descripción del mundo
-    main(archivo)
+    # Si no se encuentra el objetivo, devolver None para el camino, la profundidad y el tiempo de cómputo
+    end_time = time.perf_counter()
+    computation_time = end_time - start_time
+    return None, nodos_expandidos, profundidad_maxima, computation_time
