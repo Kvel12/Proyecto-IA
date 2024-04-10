@@ -3,6 +3,7 @@ from interfaz import WorldRenderer
 from Avara import avara
 from Profundidad import profundidad_evitando_ciclos
 from Amplitud import busqueda_amplitud
+from Costo_Uniforme import costo_uniforme
 import time
 
 # Cargar los datos del mundo desde un archivo de texto
@@ -23,12 +24,14 @@ world_renderer = WorldRenderer(world_data)
 start_time = time.perf_counter()
 #path, nodes_expanded, depth, computation_time = busqueda_amplitud(world_data)
 #path, nodes_expanded, depth, computation_time = avara(world_data)
-path, nodes_expanded, depth, computation_time = profundidad_evitando_ciclos(world_data)
+#path, nodes_expanded, depth, computation_time = profundidad_evitando_ciclos(world_data)
+path, cost, nodes_expanded, depth, computation_time = costo_uniforme(world_data)
 end_time = time.perf_counter()
 
 if path:
     
     print(f"Ruta encontrada: {path}")
+    print(f"Costo: {cost}")
     print(f"Nodos expandidos: {nodes_expanded}")
     print(f"Profundidad del árbol: {depth}")
     print(f"Tiempo de cómputo: {computation_time:.2f} segundos")
