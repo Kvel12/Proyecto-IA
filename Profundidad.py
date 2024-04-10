@@ -2,18 +2,18 @@ import time
 
 def profundidad_evitando_ciclos(world_data):
 
-    # Iniciar el temporizador para medir el tiempo de cómputo
+    # Iniciar el temporizador para medir el tiempo de cómputo 
     start_time = time.perf_counter()
 
-    # Función interna para expandir el nodo actual en la búsqueda
+    # Función interna para expandir el nodo actual en la búsqueda 
     def expand(node):
 
-        # Incrementar el contador de nodos expandidos
+        # Incrementar el contador de nodos expandidos 
         nonlocal nodes_expanded
         nodes_expanded += 1
         x, y, path = node
 
-        # Iterar sobre las posibles direcciones de movimiento en ese orden: arriba, derecha, abajo, izquierda
+        # Iterar sobre las posibles direcciones de movimiento en ese orden: abajo, derecha, arriba, izquierda
         for dx, dy in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
             nx, ny = x + dx, y + dy
 
