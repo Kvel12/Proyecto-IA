@@ -83,3 +83,4 @@ def busqueda_amplitud(mundo):
     end_time = time.perf_counter()
     computation_time = end_time - start_time
     return None, nodos_expandidos, profundidad_maxima, computation_time
+

@@ -110,4 +110,4 @@ def get_move_cost(grid, current_pos, next_pos, visited_in_ship=None, entered_shi
     if cell_type == 4:
         return 5  # Costo alto por moverse a través de un enemigo
 
-    return 1  # Movimiento normal si no hay cambios en el costo
+    return 1  # Movimiento normal si no hay cambios en el costo 
