@@ -57,6 +57,99 @@ Este archivo implementa el algoritmo de búsqueda por profundidad. Este algoritm
 - Miguel Angel Moreno Romero
 - Kevin Alejandro Velez Agudelo
 
+Aquí está el contenido de un archivo `Read.md` que explica y muestra las funciones más importantes de cada archivo:
+
+---
+
+# Documentación de las Funciones Principales
+
+Este documento proporciona una descripción de las funciones más importantes de cada archivo de código relacionado con la búsqueda de caminos en un mundo representado por una cuadrícula.
+
+## A_star.py
+
+### Función `a_star(world_data)`
+
+Esta función implementa el algoritmo A* para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una cuadrícula.
+
+**Parámetros:**
+- `world_data`: Los datos del mundo, que incluyen la cuadrícula y la ubicación de inicio y objetivo.
+
+**Retorno:**
+- `path`: El camino más corto desde el punto de inicio hasta el objetivo.
+- `final_cost`: El costo total del camino encontrado.
+- `nodes_expanded`: El número de nodos expandidos durante la búsqueda.
+- `max_depth`: La profundidad máxima alcanzada en el árbol de búsqueda.
+- `computation_time`: El tiempo de computación necesario para realizar la búsqueda.
+- `nombre`: El nombre del algoritmo de búsqueda utilizado ("Búsqueda por A*").
+
+## Amplitud.py
+
+### Función `busqueda_amplitud(mundo)`
+
+Esta función implementa el algoritmo de búsqueda en amplitud para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una cuadrícula.
+
+**Parámetros:**
+- `mundo`: Los datos del mundo, que incluyen la cuadrícula y la ubicación de inicio y objetivo.
+
+**Retorno:**
+- `path`: El camino más corto desde el punto de inicio hasta el objetivo.
+- `nodos_expandidos`: El número de nodos expandidos durante la búsqueda.
+- `profundidad_maxima`: La profundidad máxima alcanzada en el árbol de búsqueda.
+- `computation_time`: El tiempo de computación necesario para realizar la búsqueda.
+- `nombre`: El nombre del algoritmo de búsqueda utilizado ("Búsqueda por Amplitud").
+
+## Avara.py
+
+### Función `avara(world_data)`
+
+Esta función implementa el algoritmo de búsqueda Avara (también conocido como búsqueda de mejor primer resultado) para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una cuadrícula.
+
+**Parámetros:**
+- `world_data`: Los datos del mundo, que incluyen la cuadrícula y la ubicación de inicio y objetivo.
+
+**Retorno:**
+- `path`: El camino más corto desde el punto de inicio hasta el objetivo.
+- `nodes_expanded`: El número de nodos expandidos durante la búsqueda.
+- `max_depth`: La profundidad máxima alcanzada en el árbol de búsqueda.
+- `computation_time`: El tiempo de computación necesario para realizar la búsqueda.
+- `nombre`: El nombre del algoritmo de búsqueda utilizado ("Búsqueda por Avara").
+
+## Costo_Uniforme.py
+
+### Función `costo_uniforme(world_data)`
+
+Esta función implementa el algoritmo de búsqueda de costo uniforme para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una cuadrícula.
+
+**Parámetros:**
+- `world_data`: Los datos del mundo, que incluyen la cuadrícula y la ubicación de inicio y objetivo.
+
+**Retorno:**
+- `path`: El camino más corto desde el punto de inicio hasta el objetivo.
+- `cost`: El costo total del camino encontrado.
+- `nodes_expanded`: El número de nodos expandidos durante la búsqueda.
+- `depth`: La profundidad máxima alcanzada en el árbol de búsqueda.
+- `computation_time`: El tiempo de computación necesario para realizar la búsqueda.
+- `nombre`: El nombre del algoritmo de búsqueda utilizado ("Búsqueda por Costo Uniforme").
+
+## Profundidad.py
+
+### Función `profundidad_evitando_ciclos(world_data)`
+
+Esta función implementa el algoritmo de búsqueda en profundidad para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una cuadrícula, evitando ciclos.
+
+**Parámetros:**
+- `world_data`: Los datos del mundo, que incluyen la cuadrícula y la ubicación de inicio y objetivo.
+
+**Retorno:**
+- `path`: El camino más corto desde el punto de inicio hasta el objetivo.
+- `nodes_expanded`: El número de nodos expandidos durante la búsqueda.
+- `depth`: La profundidad máxima alcanzada en el árbol de búsqueda.
+- `computation_time`: El tiempo de computación necesario para realizar la búsqueda.
+- `nombre`: El nombre del algoritmo de búsqueda utilizado ("Búsqueda por Profundidad").
+
+---
+
+Este archivo proporciona una visión general de las funciones principales en cada archivo de código, facilitando su comprensión y uso.
 ## Notas Adicionales
 
 - La interfaz gráfica del programa se minimizará automáticamente después de mostrar la solución.
