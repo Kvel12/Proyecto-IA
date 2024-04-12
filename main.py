@@ -9,7 +9,7 @@ import time
 
 # Cargar los datos del mundo desde un archivo de texto
 world_data = []
-with open("Prueba1.txt", "r") as file:
+with open("Prueba2.txt", "r") as file:
     for line in file:
         row = [int(x) for x in line.strip().split()]
         world_data.append(row)
