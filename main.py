@@ -1,6 +1,7 @@
 import pygame
 from interfaz import WorldRenderer
 from Amplitud import busqueda_amplitud
+
 from Costo_Uniforme import costo_uniforme,calcular_costo_total
 from Profundidad import profundidad_evitando_ciclos
 from Avara import avara
@@ -21,9 +22,9 @@ pygame.display.set_caption("Smart Mandalorian")
 # Crear el renderizador del mundo
 world_renderer = WorldRenderer(world_data)
 
-
+# Ejecutar el algoritmo de búsqueda voraz
 start_time = time.perf_counter()
-path, nodes_expanded, depth, computation_time = busqueda_amplitud(world_data)
+path, cost, nodes_expanded, depth, computation_time = busqueda_amplitud(world_data)
 #path, cost, nodes_expanded, depth, computation_time = costo_uniforme(world_data);cost = calcular_costo_total(path, world_data)
 #path, nodes_expanded, depth, computation_time = profundidad_evitando_ciclos(world_data)
 #path, nodes_expanded, depth, computation_time = avara(world_data)

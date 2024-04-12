@@ -1,64 +1,75 @@
 import time
+def load_world(file_path):
+    with open(file_path, 'r') as file:
+        grid = [[int(num) for num in line.split()] for line in file]
+    return grid
 
-# Definición de la clase para representar un nodo
-class Nodo:
-    def __init__(self, estado, padre=None, profundidad=0):
-        self.estado = estado
-        self.padre = padre
-        self.profundidad = profundidad
+def find_start(grid):
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j] == 2:
+                return (i, j)
 
-# Función para obtener los sucesores válidos de un estado
-def obtener_sucesores(mundo, nodo, rutas_visitadas):
-    sucesores = []
-    movimientos = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-    for mov in movimientos:
-        nuevo_estado = (nodo.estado[0] + mov[0], nodo.estado[1] + mov[1])
-        if 0 <= nuevo_estado[0] < len(mundo) and 0 <= nuevo_estado[1] < len(mundo[0]) and mundo[nuevo_estado[0]][nuevo_estado[1]] != 1:
-            if nuevo_estado not in rutas_visitadas:
-                sucesor = Nodo(nuevo_estado, nodo, nodo.profundidad + 1)
-                sucesores.append(sucesor)
-                rutas_visitadas.add(nuevo_estado)
-    return sucesores
+def find_goal(grid):
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j] == 5:
+                return (i, j)
 
-# Función para obtener las coordenadas de inicio y objetivo
-def obtener_inicio_objetivo(mundo):
-    for i in range(len(mundo)):
-        for j in range(len(mundo[0])):
-            if mundo[i][j] == 2:
-                inicio = (i, j)
-            elif mundo[i][j] == 5:
-                objetivo = (i, j)
-    return inicio, objetivo
+def is_valid_move(grid, position):
+    x, y = position
+    if 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] != 1:
+        return True
+    return False
 
-# Algoritmo de búsqueda en amplitud
-def busqueda_amplitud(mundo):
+def get_neighbors(grid, position):
+    x, y = position
+    neighbors = [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]
+    valid_neighbors = [(nx, ny) for nx, ny in neighbors if is_valid_move(grid, (nx, ny))]
+    return valid_neighbors
+
+def busqueda_amplitud(world_data):
+    start = find_start(world_data)
+    goal = find_goal(world_data)
+    frontier = [start]
+    came_from = {}
+    visited = set()
+    nodes_expanded = 0
+    max_depth = 0
     start_time = time.time()
-    inicio, objetivo = obtener_inicio_objetivo(mundo)
-    nodo_inicio = Nodo(inicio)
-    nodo_objetivo = Nodo(objetivo)
-    cola = [nodo_inicio]
-    rutas_visitadas = set()
-    rutas_visitadas.add(nodo_inicio.estado)
-    nodos_expandidos = 0
-    profundidad_maxima = 0
 
-    while cola:
-        nodo_actual = cola.pop(0)
-        nodos_expandidos += 1
-        profundidad_maxima = max(profundidad_maxima, nodo_actual.profundidad)
+    while frontier:
+        current_pos = frontier.pop(0)
+        max_depth = max(max_depth, len(came_from))
 
-        if nodo_actual.estado == nodo_objetivo.estado:
-            camino = []
-            while nodo_actual:
-                camino.append(nodo_actual.estado)
-                nodo_actual = nodo_actual.padre
-            end_time = time.time()
-            computation_time = end_time - start_time
-            return camino[::-1], nodos_expandidos, profundidad_maxima, computation_time
+        if current_pos == goal:
+            break
 
-        sucesores = obtener_sucesores(mundo, nodo_actual, rutas_visitadas)
-        cola.extend(sucesores)
+        nodes_expanded += 1
+        visited.add(current_pos)
+
+        for next_pos in get_neighbors(world_data, current_pos):
+            if next_pos not in visited and next_pos not in frontier:
+                frontier.append(next_pos)
+                came_from[next_pos] = current_pos
 
     end_time = time.time()
     computation_time = end_time - start_time
-    return None, nodos_expandidos, profundidad_maxima, computation_time
+
+    path = reconstruct_path(came_from, start, goal)
+    cost = len(path) - 1
+
+    return path, cost, nodes_expanded, max_depth, computation_time
+
+def reconstruct_path(came_from, start, goal):
+    current = goal
+    path = []
+    while current != start:
+        path.append(current)
+        current = came_from[current]
+    path.append(start)
+    path.reverse()
+    return path
+
+
+
