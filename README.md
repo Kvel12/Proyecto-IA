@@ -65,7 +65,7 @@ Aquí está el contenido de un archivo `Read.md` que explica y muestra las funci
 
 Este documento proporciona una descripción de las funciones más importantes de cada archivo de código relacionado con la búsqueda de caminos en un mundo representado por una cuadrícula.
 
-## A_star.py
+## A.py
 
 ### Función `a_star(world_data)`
 
