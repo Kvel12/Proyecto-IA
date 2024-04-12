@@ -32,10 +32,6 @@ def execute_uninformed_search():
     choice = int(input("Ingresa el número de opción (1, 2 o 3): "))
     print("=" * 50)
 
-    # Inicializar Pygame
-    pygame.init()
-    pygame.display.set_caption("Smart Mandalorian")
-
     # Crear el renderizador del mundo
     world_renderer = WorldRenderer(world_data)
 
@@ -57,12 +53,23 @@ def execute_uninformed_search():
         print(f"Nodos expandidos: {nodes_expanded}")
         print(f"Profundidad del árbol: {depth}")
         print(f"Tiempo de cómputo: {computation_time:.8f} segundos")
+        print("\nAdvertencia la interfaz del programa se ha minimizado")
         print("=" * 50)
 
         if path[0][0] != 0:
             path = [(x, y) for y, x in path]
 
+        # Inicializar Pygame
+        pygame.init()
+        pygame.display.set_caption("Smart Mandalorian")
+
+        # Crear el renderizador del mundo
+        world_renderer = WorldRenderer(world_data)
         run_interface(world_renderer, path)
+
+        
+    
+
     else:
         print("=" * 50)
         print("No se encontró solución.")
@@ -75,13 +82,6 @@ def execute_informed_search():
     print("2. Algoritmo de búsqueda A*")
     choice = int(input("Ingresa el número de opción (1 o 2): "))
     print("=" * 50)
-
-    # Inicializar Pygame
-    pygame.init()
-    pygame.display.set_caption("Smart Mandalorian")
-
-    # Crear el renderizador del mundo
-    world_renderer = WorldRenderer(world_data)
 
     if choice == 1:
         path, nodes_expanded, depth, computation_time = avara(world_data)
@@ -99,12 +99,21 @@ def execute_informed_search():
         print(f"Nodos expandidos: {nodes_expanded}")
         print(f"Profundidad del árbol: {depth}")
         print(f"Tiempo de cómputo: {computation_time:.8f} segundos")
+        print("\nAdvertencia la interfaz del programa se ha minimizado")
         print("=" * 50)
 
         if path[0][0] != 0:
             path = [(x, y) for y, x in path]
 
+        # Inicializar Pygame
+        pygame.init()
+        pygame.display.set_caption("Smart Mandalorian")
+
+        # Crear el renderizador del mundo
+        world_renderer = WorldRenderer(world_data)
         run_interface(world_renderer, path)
+
+
     else:
         print("=" * 50)
         print("No se encontró solución.")
