@@ -26,7 +26,7 @@ class WorldRenderer:
             for x in range(len(self.world_data[0])):
                 self.screen.blit(self.tile_images[self.world_data[y][x]], (x * self.tile_size, y * self.tile_size))
 
-        if path and len(path) >= 2:
+        if path and len(path) -1 :
             pygame.draw.rect(self.screen, (0, 255, 0), (path[1] * self.tile_size, path[0] * self.tile_size, self.tile_size, self.tile_size))
 
         pygame.display.flip()
