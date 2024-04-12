@@ -28,7 +28,7 @@ Este programa implementa diferentes algoritmos de búsqueda para encontrar la ru
 1. **Algoritmo de búsqueda Ávara**: Selecciona el nodo que parece más prometedor según alguna heurística.
 2. **Algoritmo de búsqueda A***: Considera tanto el costo pasado como una estimación del costo futuro para decidir qué nodo expandir.
 
-## Funciones Añadidas
+## Archivos donde se alojan los algoritmos
 
 ### A.py
 
