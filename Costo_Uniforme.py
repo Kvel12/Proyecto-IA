@@ -23,6 +23,7 @@ def costo_uniforme(world_data):
     nodes_expanded = 0
     depth = 0
     start_time = time.time()
+    nombre = "Búsqueda por Costo Uniforme"
 
     while frontier:
         current_cost, current_pos = heapq.heappop(frontier)
@@ -45,7 +46,7 @@ def costo_uniforme(world_data):
     computation_time = end_time - start_time
     path = reconstruct_path(came_from, start, goal)
     cost = cost_so_far[goal]
-    return path, cost, nodes_expanded, depth, computation_time
+    return path, cost, nodes_expanded, depth, computation_time, nombre
 
 def get_neighbors(grid, current_pos):
     """

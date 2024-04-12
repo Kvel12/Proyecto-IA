@@ -41,6 +41,7 @@ def busqueda_amplitud(mundo):
     rutas_visitadas.add(nodo_inicio.estado)
     nodos_expandidos = 0
     profundidad_maxima = 0
+    nombre = "Búsqueda por Amplitud"
 
     while cola:
         nodo_actual = cola.pop(0)
@@ -54,7 +55,7 @@ def busqueda_amplitud(mundo):
                 nodo_actual = nodo_actual.padre
             end_time = time.time()
             computation_time = end_time - start_time
-            return camino[::-1], nodos_expandidos, profundidad_maxima, computation_time
+            return camino[::-1], nodos_expandidos, profundidad_maxima, computation_time, nombre
 
         sucesores = obtener_sucesores(mundo, nodo_actual, rutas_visitadas)
         cola.extend(sucesores)

@@ -56,8 +56,9 @@ def a_star(world_data):
             path.append((start_y, start_x))  # Invertir el orden de las coordenadas del inicio
             path.reverse()
             end_time = time.perf_counter()
-            computation_time = round(end_time - start_time, 8)
-            return path, final_cost, nodes_expanded, len(path) - 1, computation_time
+            computation_time = end_time - start_time
+            nombre = "Búsqueda por A*"
+            return path, final_cost, nodes_expanded, len(path) - 1, computation_time, nombre
         
         if current_node.cost > visited[(current_node.x, current_node.y)]:
             continue
@@ -77,8 +78,9 @@ def a_star(world_data):
     
     # No se encontró solución
     end_time = time.perf_counter()
-    computation_time = round(end_time - start_time, 8)
-    return None, None, nodes_expanded, max_depth, computation_time
+    computation_time = end_time - start_time
+    nombre = "Búsqueda por A*"
+    return None, None, nodes_expanded, max_depth, computation_time, nombre
 
 def get_move_cost(grid, current_pos, next_pos):
     cell_type = grid[next_pos[1]][next_pos[0]]  # Corregir el orden de las coordenadas

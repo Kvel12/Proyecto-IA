@@ -64,7 +64,8 @@ def avara(world_data):
             path.append((start_y, start_x))  # Invertir el orden de las coordenadas del inicio
             path.reverse()
             end_time = time.perf_counter()
-            return path, nodes_expanded, len(path) - 1, end_time - start_time  # Devolver la profundidad sin contar la raíz
+            nombre = "Búsqueda por Avara"
+            return path, nodes_expanded, len(path) - 1, end_time - start_time, nombre  # Devolver la profundidad sin contar la raíz
 
         if (current_node.x, current_node.y) in visited:
             continue
@@ -89,4 +90,5 @@ def avara(world_data):
 
     # No se encontró solución
     end_time = time.perf_counter()
-    return None, nodes_expanded, max_depth, end_time - start_time
+    nombre = "Búsqueda por A*"
+    return None, nodes_expanded, max_depth, end_time - start_time, nombre

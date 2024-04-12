@@ -36,39 +36,41 @@ def execute_uninformed_search():
     world_renderer = WorldRenderer(world_data)
 
     if choice == 1:
-        path, nodes_expanded, depth, computation_time = busqueda_amplitud(world_data)
+        path, nodes_expanded, depth, computation_time, nombre = busqueda_amplitud(world_data)
     elif choice == 2:
-        path, cost, nodes_expanded, depth, computation_time = costo_uniforme(world_data);cost = cost=g(path, world_data)
+        path, cost, nodes_expanded, depth, computation_time, nombre = costo_uniforme(world_data);cost = cost=g(path, world_data)
     elif choice == 3:
-        path, nodes_expanded, depth, computation_time = profundidad_evitando_ciclos(world_data)
+        path, nodes_expanded, depth, computation_time, nombre = profundidad_evitando_ciclos(world_data)
     else:
         print("Opción inválida.")
         return
 
     if path:
+        
         print("=" * 50)
+
+        # Invertir el orden de las coordenadas en la ruta
+        if nombre == "Búsqueda por Profundidad":
+            path = [(y, x) for x, y in path]
+
         print(f"Ruta encontrada: {path}")
         if 'cost' in locals():
             print(f"Costo: {cost}")
         print(f"Nodos expandidos: {nodes_expanded}")
         print(f"Profundidad del árbol: {depth}")
         print(f"Tiempo de cómputo: {computation_time:.8f} segundos")
-        print("\nAdvertencia la interfaz del programa se ha minimizado")
+        print("\n¡¡¡Advertencia la interfaz del programa se ha minimizado!!!")
         print("=" * 50)
-
-        if path[0][0] != 0:
-            path = [(x, y) for y, x in path]
-
-        # Inicializar Pygame
-        pygame.init()
-        pygame.display.set_caption("Smart Mandalorian")
 
         # Crear el renderizador del mundo
         world_renderer = WorldRenderer(world_data)
-        run_interface(world_renderer, path)
+        world_renderer.set_mandalorian_position(path[0])
+        world_renderer.set_path(path)
 
-        
-    
+        # Inicializar Pygame
+        pygame.init()
+        pygame.display.set_caption("Smart Mandalorian -> " + nombre)
+        run_interface(world_renderer)
 
     else:
         print("=" * 50)
@@ -84,9 +86,9 @@ def execute_informed_search():
     print("=" * 50)
 
     if choice == 1:
-        path, nodes_expanded, depth, computation_time = avara(world_data)
+        path, nodes_expanded, depth, computation_time, nombre = avara(world_data)
     elif choice == 2:
-        path, cost, nodes_expanded, depth, computation_time = a_star(world_data)
+        path, cost, nodes_expanded, depth, computation_time, nombre = a_star(world_data)
     else:
         print("Opción inválida.")
         return
@@ -99,34 +101,34 @@ def execute_informed_search():
         print(f"Nodos expandidos: {nodes_expanded}")
         print(f"Profundidad del árbol: {depth}")
         print(f"Tiempo de cómputo: {computation_time:.8f} segundos")
-        print("\nAdvertencia la interfaz del programa se ha minimizado")
+        print("\n¡¡¡Advertencia la interfaz del programa se ha minimizado!!!")
         print("=" * 50)
 
-        if path[0][0] != 0:
-            path = [(x, y) for y, x in path]
-
-        # Inicializar Pygame
-        pygame.init()
-        pygame.display.set_caption("Smart Mandalorian")
 
         # Crear el renderizador del mundo
         world_renderer = WorldRenderer(world_data)
-        run_interface(world_renderer, path)
+        world_renderer.set_mandalorian_position(path[0])
+        world_renderer.set_path(path)
 
+        # Inicializar Pygame
+        pygame.init()
+        pygame.display.set_caption("Smart Mandalorian -> " + nombre)
+        run_interface(world_renderer)
 
     else:
         print("=" * 50)
         print("No se encontró solución.")
         print("=" * 50)
 
-def run_interface(world_renderer, path):
-    world_renderer.render(path)
+def run_interface(world_renderer):
     running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        pygame.time.delay(100)  # Esperar 0.1 segundos entre cada cuadro
+        world_renderer.update()
+        world_renderer.render()
+        pygame.time.delay(200)  # Esperar 0.2 segundos entre cada cuadro
     pygame.quit()
 
 if __name__ == "__main__":
