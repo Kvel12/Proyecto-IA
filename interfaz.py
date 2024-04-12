@@ -51,7 +51,7 @@ class WorldRenderer:
         # Dibujar el camino en verde, excepto la última posición
         for i, pos in enumerate(self.path):
             if i < len(self.path) - 1:
-                pygame.draw.rect(self.screen, (0, 255, 0), (pos[1] * self.tile_size, pos[0] * self.tile_size, self.tile_size, self.tile_size))
+                pygame.draw.rect(self.screen, (255, 255, 0), (pos[1] * self.tile_size, pos[0] * self.tile_size, self.tile_size, self.tile_size))
 
         if self.mandalorian_position is not None:
             self.screen.blit(self.tile_images[2], (self.mandalorian_position[1] * self.tile_size, self.mandalorian_position[0] * self.tile_size))
