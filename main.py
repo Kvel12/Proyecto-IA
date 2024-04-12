@@ -1,7 +1,7 @@
 import pygame
 from interfaz import WorldRenderer
 from Amplitud import busqueda_amplitud
-from Costo_Uniforme import costo_uniforme, calcular_costo_total
+from Costo_Uniforme import costo_uniforme,g
 from Profundidad import profundidad_evitando_ciclos
 from Avara import avara
 from A import a_star
@@ -40,9 +40,9 @@ def execute_uninformed_search():
     world_renderer = WorldRenderer(world_data)
 
     if choice == 1:
-        path, cost, nodes_expanded, depth, computation_time = busqueda_amplitud(world_data)
+        path, nodes_expanded, depth, computation_time = busqueda_amplitud(world_data)
     elif choice == 2:
-        path, cost, nodes_expanded, depth, computation_time = costo_uniforme(world_data)
+        path, cost, nodes_expanded, depth, computation_time = costo_uniforme(world_data);cost = cost=g(path, world_data)
     elif choice == 3:
         path, nodes_expanded, depth, computation_time = profundidad_evitando_ciclos(world_data)
     else:

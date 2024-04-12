@@ -2,6 +2,15 @@ import heapq
 import time
 
 def costo_uniforme(world_data):
+    """
+    Aplica el algoritmo de costo uniforme para encontrar el camino más corto desde el punto de inicio hasta el objetivo.
+
+    Args:
+        world_data: Los datos del mundo, que incluyen la cuadrícula y la ubicación de inicio y objetivo.
+
+    Returns:
+        Una tupla que contiene el camino más corto, el costo del camino, el número de nodos expandidos, la profundidad máxima alcanzada y el tiempo de computación.
+    """
     start = find_start(world_data)
     goal = find_goal(world_data)
     frontier = []
@@ -39,24 +48,62 @@ def costo_uniforme(world_data):
     return path, cost, nodes_expanded, depth, computation_time
 
 def get_neighbors(grid, current_pos):
+    """
+    Encuentra los vecinos válidos de una posición dada en la cuadrícula.
+
+    Args:
+        grid: La cuadrícula que representa el mundo.
+        current_pos: La posición actual en la cuadrícula.
+
+    Returns:
+        Una lista de posiciones vecinas válidas.
+    """
     x, y = current_pos
     neighbors = [(x+1, y), (x-1, y), (x, y+1), (x, y-1)]
     valid_neighbors = [(nx, ny) for nx, ny in neighbors if is_valid_move(grid, (nx, ny))]
     return valid_neighbors
 
 def is_valid_move(grid, position):
+    """
+    Verifica si una posición dada en la cuadrícula es válida para moverse.
+
+    Args:
+        grid: La cuadrícula que representa el mundo.
+        position: La posición en la cuadrícula que se está verificando.
+
+    Returns:
+        True si la posición es válida para moverse, False en caso contrario.
+    """
     x, y = position
     if 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] != 1:
         return True
     return False
 
 def find_start(grid):
+    """
+    Encuentra la posición de inicio en la cuadrícula.
+
+    Args:
+        grid: La cuadrícula que representa el mundo.
+
+    Returns:
+        La posición de inicio en la cuadrícula.
+    """
     for i in range(len(grid)):
         for j in range(len(grid[0])):
             if grid[i][j] == 2:
                 return (i, j)
 
 def find_goal(grid):
+    """
+    Encuentra la posición objetivo en la cuadrícula.
+
+    Args:
+        grid: La cuadrícula que representa el mundo.
+
+    Returns:
+        La posición objetivo en la cuadrícula.
+    """
     for i in range(len(grid)):
         for j in range(len(grid[0])):
             if grid[i][j] == 5:
@@ -64,6 +111,20 @@ def find_goal(grid):
 
 
 def get_move_cost(grid, current_pos, next_pos, visited_in_ship=None, entered_ship=False, ship_cells_passed=0):
+    """
+    Calcula el costo de moverse desde una posición actual a una posición vecina en la cuadrícula.
+
+    Args:
+        grid: La cuadrícula que representa el mundo.
+        current_pos: La posición actual.
+        next_pos: La siguiente posición a la que se quiere mover.
+        visited_in_ship: Un conjunto de posiciones visitadas en una nave.
+        entered_ship: Un indicador de si se ha entrado en una nave.
+        ship_cells_passed: El número de celdas de nave pasadas.
+
+    Returns:
+        El costo de moverse desde la posición actual a la siguiente posición.
+    """
     if visited_in_ship is None:
         visited_in_ship = set()
     
@@ -95,6 +156,17 @@ def get_move_cost(grid, current_pos, next_pos, visited_in_ship=None, entered_shi
 
 
 def reconstruct_path(came_from, start, goal):
+    """
+    Reconstruye el camino más corto desde el punto de inicio hasta el objetivo.
+
+    Args:
+        came_from: Un diccionario que contiene los nodos visitados y sus predecesores.
+        start: La posición de inicio.
+        goal: La posición objetivo.
+
+    Returns:
+        El camino más corto desde el punto de inicio hasta el objetivo.
+    """
     current = goal
     path = []
     while current != start:
@@ -104,7 +176,7 @@ def reconstruct_path(came_from, start, goal):
     path.reverse()
     return path
 
-def calcular_costo_total(path, grid):
+def g(path, grid):
     """
     Calcula el costo total del camino.
 
@@ -119,7 +191,7 @@ def calcular_costo_total(path, grid):
     en_nave = False
     combustible_nave = 10
     for i in range(len(path) - 1):
-        current_pos = path[i]
+        
         next_pos = path[i + 1]
         if grid[next_pos[0]][next_pos[1]] == 3:  # Si es la nave
             en_nave = True
@@ -135,4 +207,6 @@ def calcular_costo_total(path, grid):
             costo = 1  # Costo normal de movimiento
         costo_total += costo
     return costo_total
+
+
 
