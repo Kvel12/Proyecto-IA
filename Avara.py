@@ -21,6 +21,15 @@ def is_valid_move(world_data, x, y):
     # Verificar si un movimiento es válido en el laberinto
     return 0 <= x < 10 and 0 <= y < 10 and world_data[y][x] != 1
 
+"""
+    Aplica el algoritmo de Avara para encontrar el camino más corto desde el punto de inicio hasta el objetivo.
+
+    Args:
+        world_data: Los datos del mundo, que incluyen la cuadrícula.
+
+    Returns:
+        Una tupla que contiene el camino más corto, el número de nodos expandidos, la profundidad máxima alcanzada y el tiempo de computación.
+    """
 def avara(world_data):
     # Encontrar las coordenadas de inicio y destino
     start_x, start_y = None, None
