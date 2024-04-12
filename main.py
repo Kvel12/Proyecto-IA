@@ -9,7 +9,7 @@ import time
 
 # Cargar los datos del mundo desde un archivo de texto
 world_data = []
-with open("Prueba2.txt", "r") as file:
+with open("Prueba1.txt", "r") as file:
     for line in file:
         row = [int(x) for x in line.strip().split()]
         world_data.append(row)
@@ -37,7 +37,7 @@ if path:
     print(f"Costo: {cost}")
     print(f"Nodos expandidos: {nodes_expanded}")
     print(f"Profundidad del árbol: {depth}")
-    print(f"Tiempo de cómputo: {computation_time:.2f} segundos")
+    print(f"Tiempo de cómputo: {computation_time:.8f} segundos")
 
 
     if path[0][0] != 0:
