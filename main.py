@@ -1,7 +1,7 @@
 import pygame
 from interfaz import WorldRenderer
 from Amplitud import busqueda_amplitud
-from Costo_Uniforme import costo_uniforme,g
+from Costo_Uniforme import costo_uniforme, g
 from Profundidad import profundidad_evitando_ciclos
 from Avara import avara
 from A import a_star
@@ -32,13 +32,11 @@ def execute_uninformed_search():
     choice = int(input("Ingresa el número de opción (1, 2 o 3): "))
     print("=" * 50)
 
-    # Crear el renderizador del mundo
-    world_renderer = WorldRenderer(world_data)
-
     if choice == 1:
         path, nodes_expanded, depth, computation_time = busqueda_amplitud(world_data)
     elif choice == 2:
-        path, cost, nodes_expanded, depth, computation_time = costo_uniforme(world_data);cost = cost=g(path, world_data)
+        path, cost, nodes_expanded, depth, computation_time = costo_uniforme(world_data)
+        cost = g(path, world_data)
     elif choice == 3:
         path, nodes_expanded, depth, computation_time = profundidad_evitando_ciclos(world_data)
     else:
@@ -61,15 +59,10 @@ def execute_uninformed_search():
 
         # Inicializar Pygame
         pygame.init()
-        pygame.display.set_caption("Smart Mandalorian")
 
         # Crear el renderizador del mundo
         world_renderer = WorldRenderer(world_data)
         run_interface(world_renderer, path)
-
-        
-    
-
     else:
         print("=" * 50)
         print("No se encontró solución.")
@@ -107,27 +100,47 @@ def execute_informed_search():
 
         # Inicializar Pygame
         pygame.init()
-        pygame.display.set_caption("Smart Mandalorian")
 
         # Crear el renderizador del mundo
         world_renderer = WorldRenderer(world_data)
         run_interface(world_renderer, path)
-
-
     else:
         print("=" * 50)
         print("No se encontró solución.")
         print("=" * 50)
 
 def run_interface(world_renderer, path):
-    world_renderer.render(path)
-    running = True
-    while running:
+    # Initialize Pygame
+    pygame.init()
+    pygame.display.set_caption("Smart Mandalorian")
+
+    # Render the character at the initial position
+    world_renderer.render([path[0]])
+
+    # Run the interface loop
+    index = 1  # Start from index 1 to skip the initial position
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
-        pygame.time.delay(100)  # Esperar 0.1 segundos entre cada cuadro
-    pygame.quit()
+                pygame.quit()  # Cierra Pygame y todas las ventanas asociadas
+                return  # Salir de la función run_interface si se cierra la ventana
+
+        # Clear the previous position
+        world_renderer.render([])
+
+        # Render the character at the current position
+        if index < len(path):
+            world_renderer.render([path[index]])
+            index += 1
+        else:
+            # Si el recorrido ha terminado, salir del bucle
+            break
+
+        # Add a short delay for smoother animation
+        pygame.time.delay(200)  # Pause for 0.2 seconds
+
+    pygame.quit()  # Cierra Pygame y todas las ventanas asociadas
+
 
 if __name__ == "__main__":
     choice = show_algorithm_options()
@@ -137,3 +150,6 @@ if __name__ == "__main__":
         execute_informed_search()
     else:
         print("Opción inválida.")
+
+    
+

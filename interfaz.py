@@ -4,8 +4,8 @@ class WorldRenderer:
     def __init__(self, world_data):
         self.world_data = world_data
         self.tile_size = 50
-        self.screen_width = 10 * self.tile_size
-        self.screen_height = 10 * self.tile_size
+        self.screen_width = len(world_data[0]) * self.tile_size
+        self.screen_height = len(world_data) * self.tile_size
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         self.load_assets()
 
@@ -22,14 +22,19 @@ class WorldRenderer:
         self.tile_images[1].fill((128, 128, 128))  # Llenar el muro de gris
 
     def render(self, path=None):
-        for y in range(10):
-            for x in range(10):
+        for y in range(len(self.world_data)):
+            for x in range(len(self.world_data[0])):
                 self.screen.blit(self.tile_images[self.world_data[y][x]], (x * self.tile_size, y * self.tile_size))
 
-        if path:
-            for i in range(len(path)):
-                x, y = path[i]
-                if self.world_data[y][x] == 0:
-                    pygame.draw.rect(self.screen, (0, 255, 0), (x * self.tile_size, y * self.tile_size, self.tile_size, self.tile_size))
+        if path and len(path) >= 2:
+            pygame.draw.rect(self.screen, (0, 255, 0), (path[1] * self.tile_size, path[0] * self.tile_size, self.tile_size, self.tile_size))
 
         pygame.display.flip()
+
+        if path:
+            for position in path:
+                x, y = position
+                if self.world_data[y][x] == 0:
+                    self.screen.blit(self.tile_images[2], (x * self.tile_size, y * self.tile_size))
+                pygame.display.flip()
+                pygame.time.delay(200)  # Agregar una pausa para ralentizar el movimiento
