@@ -66,6 +66,7 @@ def find_goal(grid):
 def get_move_cost(grid, current_pos, next_pos, visited_in_ship=None, entered_ship=False, ship_cells_passed=0):
     if visited_in_ship is None:
         visited_in_ship = set()
+    
     cell_type = grid[next_pos[0]][next_pos[1]]
     
     if cell_type == 3:  # Si la posición es una nave
@@ -81,7 +82,9 @@ def get_move_cost(grid, current_pos, next_pos, visited_in_ship=None, entered_shi
         visited_in_ship.add(next_pos)
         ship_cells_passed += 1
         if ship_cells_passed <= 10:
-            return 0.5  # Costo reducido por cada una de las siguientes 10 casillas
+            return 0.5  # Costo reducido por cada una de las siguientes 10 casillas dentro de la nave
+        else:
+            return 1  # Costo normal después de las primeras 10 casillas dentro de la nave
 
     if cell_type == 4 and current_pos in visited_in_ship:
         return 0.5  # Costo reducido por pasar por un enemigo dentro de la nave
@@ -89,6 +92,7 @@ def get_move_cost(grid, current_pos, next_pos, visited_in_ship=None, entered_shi
         return 5  # Costo alto por moverse a través de un enemigo
 
     return 1  # Movimiento normal si no hay cambios en el costo
+
 
 def reconstruct_path(came_from, start, goal):
     current = goal
@@ -99,3 +103,36 @@ def reconstruct_path(came_from, start, goal):
     path.append(start)
     path.reverse()
     return path
+
+def calcular_costo_total(path, grid):
+    """
+    Calcula el costo total del camino.
+
+    Args:
+        path: El camino desde el punto de inicio hasta el objetivo.
+        grid: La cuadrícula que representa el mundo.
+
+    Returns:
+        El costo total del camino.
+    """
+    costo_total = 0
+    en_nave = False
+    combustible_nave = 10
+    for i in range(len(path) - 1):
+        current_pos = path[i]
+        next_pos = path[i + 1]
+        if grid[next_pos[0]][next_pos[1]] == 3:  # Si es la nave
+            en_nave = True
+            combustible_nave = 10  # Reiniciar el combustible de la nave
+        if en_nave:
+            costo = 0.5  # Costo reducido dentro de la nave
+            combustible_nave -= 1
+            if combustible_nave <= 0:  # Si se agota el combustible, volver al costo normal
+                en_nave = False
+        elif grid[next_pos[0]][next_pos[1]] == 4:  # Si hay un enemigo
+            costo = 5  # Costo alto por pasar por un enemigo
+        else:
+            costo = 1  # Costo normal de movimiento
+        costo_total += costo
+    return costo_total
+

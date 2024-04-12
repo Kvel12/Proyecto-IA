@@ -1,7 +1,7 @@
 import pygame
 from interfaz import WorldRenderer
 from Amplitud import busqueda_amplitud
-from Costo_Uniforme import costo_uniforme
+from Costo_Uniforme import costo_uniforme,calcular_costo_total
 from Profundidad import profundidad_evitando_ciclos
 from Avara import avara
 from A import a_star
@@ -24,15 +24,15 @@ world_renderer = WorldRenderer(world_data)
 # Ejecutar el algoritmo de búsqueda voraz
 start_time = time.perf_counter()
 #path, nodes_expanded, depth, computation_time = busqueda_amplitud(world_data)
-#path, cost, nodes_expanded, depth, computation_time = costo_uniforme(world_data)
+path, cost, nodes_expanded, depth, computation_time = costo_uniforme(world_data);cost = calcular_costo_total(path, world_data)
 #path, nodes_expanded, depth, computation_time = profundidad_evitando_ciclos(world_data)
 #path, nodes_expanded, depth, computation_time = avara(world_data)
-path, cost, nodes_expanded, depth, computation_time = a_star(world_data)
+#path, cost, nodes_expanded, depth, computation_time = a_star(world_data)
 
 end_time = time.perf_counter()
 
 if path:
-    
+   
     print(f"Ruta encontrada: {path}")
     print(f"Costo: {cost}")
     print(f"Nodos expandidos: {nodes_expanded}")
