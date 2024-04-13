@@ -1,11 +1,12 @@
-# Mandalorian Intelligent Pathfinding
+# Smart Mandalorian
 
 Este programa implementa diferentes algoritmos de búsqueda para encontrar la ruta óptima para que un Mandaloriano navegue a través de un terreno peligroso hasta su destino. Los algoritmos implementados incluyen búsqueda no informada (amplitud, costo uniforme, profundidad) y búsqueda informada (Ávara, A*).
 
 ## Requerimientos
 
 - Python 3.x
-- Pygame (puede instalarse a través de `pip install pygame`)
+- Librería Pygame (puede instalarse a través de `pip install pygame`)
+- Librería time
 
 ## Uso
 
@@ -27,6 +28,7 @@ Este programa implementa diferentes algoritmos de búsqueda para encontrar la ru
 
 1. **Algoritmo de búsqueda Ávara**: Selecciona el nodo que parece más prometedor según alguna heurística.
 2. **Algoritmo de búsqueda A***: Considera tanto el costo pasado como una estimación del costo futuro para decidir qué nodo expandir.
+
 
 ## Archivos donde se alojan los algoritmos
 
@@ -50,29 +52,29 @@ Este archivo implementa el algoritmo de búsqueda por costo uniforme. Este algor
 
 Este archivo implementa el algoritmo de búsqueda por profundidad. Este algoritmo explora tanto como sea posible a lo largo de cada rama antes de retroceder, lo que puede llevar a una búsqueda no óptima en algunos casos.
 
-## Contribuyentes
+
+## Integrantes del Grupo:
 
 - Ervin CaravalI Ibarra
 - Hernan David Cisneros Vargas
 - Miguel Angel Moreno Romero
 - Kevin Alejandro Velez Agudelo
 
-Aquí está el contenido de un archivo `Read.md` que explica y muestra las funciones más importantes de cada archivo:
 
 ---
 
 # Documentación de las Funciones Principales
 
-Este documento proporciona una descripción de las funciones más importantes de cada archivo de código relacionado con la búsqueda de caminos en un mundo representado por una cuadrícula.
+A continuación se proporciona una descripción de las funciones más importantes de cada archivo de código relacionado con la búsqueda de caminos en un mundo representado por una matriz.
 
 ## A.py
 
 ### Función `a_star(world_data)`
 
-Esta función implementa el algoritmo A* para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una cuadrícula.
+Esta función implementa el algoritmo A* para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una matriz.
 
 **Parámetros:**
-- `world_data`: Los datos del mundo, que incluyen la cuadrícula y la ubicación de inicio y objetivo.
+- `world_data`: Los datos del mundo, que incluyen la matriz y la ubicación de inicio y objetivo.
 
 **Retorno:**
 - `path`: El camino más corto desde el punto de inicio hasta el objetivo.
@@ -86,10 +88,10 @@ Esta función implementa el algoritmo A* para encontrar el camino más corto des
 
 ### Función `busqueda_amplitud(mundo)`
 
-Esta función implementa el algoritmo de búsqueda en amplitud para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una cuadrícula.
+Esta función implementa el algoritmo de búsqueda en amplitud para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una matriz.
 
 **Parámetros:**
-- `mundo`: Los datos del mundo, que incluyen la cuadrícula y la ubicación de inicio y objetivo.
+- `mundo`: Los datos del mundo, que incluyen la matriz y la ubicación de inicio y objetivo.
 
 **Retorno:**
 - `path`: El camino más corto desde el punto de inicio hasta el objetivo.
@@ -102,10 +104,10 @@ Esta función implementa el algoritmo de búsqueda en amplitud para encontrar el
 
 ### Función `avara(world_data)`
 
-Esta función implementa el algoritmo de búsqueda Avara (también conocido como búsqueda de mejor primer resultado) para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una cuadrícula.
+Esta función implementa el algoritmo de búsqueda Avara (también conocido como búsqueda de mejor primer resultado) para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una matriz.
 
 **Parámetros:**
-- `world_data`: Los datos del mundo, que incluyen la cuadrícula y la ubicación de inicio y objetivo.
+- `world_data`: Los datos del mundo, que incluyen la matriz y la ubicación de inicio y objetivo.
 
 **Retorno:**
 - `path`: El camino más corto desde el punto de inicio hasta el objetivo.
@@ -118,10 +120,10 @@ Esta función implementa el algoritmo de búsqueda Avara (también conocido como
 
 ### Función `costo_uniforme(world_data)`
 
-Esta función implementa el algoritmo de búsqueda de costo uniforme para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una cuadrícula.
+Esta función implementa el algoritmo de búsqueda de costo uniforme para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una matriz.
 
 **Parámetros:**
-- `world_data`: Los datos del mundo, que incluyen la cuadrícula y la ubicación de inicio y objetivo.
+- `world_data`: Los datos del mundo, que incluyen la matriz y la ubicación de inicio y objetivo.
 
 **Retorno:**
 - `path`: El camino más corto desde el punto de inicio hasta el objetivo.
@@ -135,10 +137,10 @@ Esta función implementa el algoritmo de búsqueda de costo uniforme para encont
 
 ### Función `profundidad_evitando_ciclos(world_data)`
 
-Esta función implementa el algoritmo de búsqueda en profundidad para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una cuadrícula, evitando ciclos.
+Esta función implementa el algoritmo de búsqueda en profundidad para encontrar el camino más corto desde el punto de inicio hasta el objetivo en un mundo representado por una matriz, evitando ciclos.
 
 **Parámetros:**
-- `world_data`: Los datos del mundo, que incluyen la cuadrícula y la ubicación de inicio y objetivo.
+- `world_data`: Los datos del mundo, que incluyen la matriz y la ubicación de inicio y objetivo.
 
 **Retorno:**
 - `path`: El camino más corto desde el punto de inicio hasta el objetivo.
@@ -149,7 +151,7 @@ Esta función implementa el algoritmo de búsqueda en profundidad para encontrar
 
 ---
 
-Este archivo proporciona una visión general de las funciones principales en cada archivo de código, facilitando su comprensión y uso.
+
 ## Notas Adicionales
 
 - La interfaz gráfica del programa se minimizará automáticamente después de mostrar la solución.
